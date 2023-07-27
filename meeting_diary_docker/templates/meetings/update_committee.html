@@ -1,0 +1,16 @@
+<!-- prettier-ignore -->
+{% extends 'base.html' %} {% load static %} {% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+  {% if update_committee_form %}
+  <form
+    action="{% url 'meetings:update_committee' committee.id %}"
+    method="post"
+  >
+    <!-- prettier-ignore -->
+    {% csrf_token %} {{ update_committee_form|crispy }} {{ update_committee_form.media }}
+    <button type="submit" class="btn btn-success">Update Committee</button>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}

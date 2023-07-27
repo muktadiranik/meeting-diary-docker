@@ -1,0 +1,11 @@
+<!-- prettier-ignore -->
+{% extends 'base.html' %} {% block content %} {% load crispy_forms_tags %}
+<div class="container">
+  {% if update_member_form %}
+  <form method="POST" action="{% url 'meetings:update_member' member.id %}">
+    {% csrf_token %} {{ update_member_form|crispy }}
+    <button type="submit" class="btn btn-success">Update Member</button>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}

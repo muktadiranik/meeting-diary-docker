@@ -1,0 +1,48 @@
+<!-- prettier-ignore -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+  {% if add_meeting_form %}
+  <form action="{% url 'meetings:add_meeting' committee.id  %}" method="post">
+    <!-- {{ add_meeting_form|crispy }} -->
+    <!-- prettier-ignore -->
+    {% csrf_token %}
+    {% for field in add_meeting_form %}
+    <div class="form-group mb-4">
+      <label for="{{ field.id_for_label }}"
+        >{{ field.label }}<span>&nbsp;</span>
+        {% if field.name == "invited_member" %}
+        <a href="" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+          <i class="fa-solid fa-plus"></i>
+        </a>
+        {% endif %}
+        <!-- prettier-ignore -->
+        {% if field.name == "meeting_type" %}
+        <a href="" data-bs-toggle="modal" data-bs-target="#addMeetingTypeModal"
+          ><i class="fa-solid fa-plus"></i
+        ></a>
+        {% endif %}
+      </label>
+      <!-- prettier-ignore -->
+      <div class="mt-2">
+        {{ field }}
+        {% if field.help_text %}
+        <small id="{{ field.id_for_label }}Help" class="form-text text-muted">
+          {{ field.help_text }}
+        </small>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %} {{ add_meeting_form.media }}
+    <button type="submit" class="btn btn-success">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </form>
+  <div>{% include 'meetings/add_member.html' %}</div>
+  <div>{% include 'meetings/add_meeting_type.html' %}</div>
+  {% endif %}
+</div>
+
+{% endblock %}

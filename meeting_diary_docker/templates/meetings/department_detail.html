@@ -1,0 +1,78 @@
+{% extends 'base.html' %} {% load static %}
+<!-- prettier-ignore -->
+{% block title %}{{ department.name }}{% endblock %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>{{ department.title }}</h1>
+      <p>{{ department.description|safe }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1"><h1>Your Committees</h1></span>
+          <div class="d-flex">
+            <form class="d-flex" method="get">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search Committees"
+                aria-label="Search"
+                name="search_committee"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </form>
+            <button
+              class="btn btn-outline-success ms-2"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#addCommitteeModal"
+            >
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </div>
+      </nav>
+      {% include 'meetings/committee_list.html' %}
+    </div>
+    <div class="col-md-7">
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1"><h1>Your Members</h1></span>
+          <div class="d-flex">
+            <form class="d-flex" method="get">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search Members"
+                aria-label="Search"
+                name="search_member"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </form>
+            <button
+              class="btn btn-outline-success ms-2"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#addMemberModal"
+            >
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </div>
+      </nav>
+      {% include 'meetings/member_list.html' %}
+    </div>
+  </div>
+  <!-- prettier-ignore -->
+  {% include 'meetings/add_member.html' %} 
+  {% include 'meetings/add_committee.html' %}
+</div>
+{% endblock %}

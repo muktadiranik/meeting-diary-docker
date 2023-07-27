@@ -1,0 +1,87 @@
+{% for committee in committees %}
+<div class="card mt-2 mb-2">
+  <h3 class="card-header">{{ committee.title }}</h3>
+  <div class="card-body">
+    <h5 class="card-title">{{ committee.description|safe }}</h5>
+    <a
+      href="{% url 'meetings:committee_detail' committee.id %}"
+      class="btn btn-primary"
+    >
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
+    <a
+      href="{% url 'meetings:update_committee' committee.id %}"
+      class="btn btn-warning"
+      ><i class="fa-solid fa-pencil"></i
+    ></a>
+    <a
+      href="#"
+      class="btn btn-danger"
+      type="button"
+      data-bs-toggle="modal"
+      data-bs-target="#confirmDeleteDepartmentModal"
+      ><i class="fa-regular fa-trash-can"></i></i
+    ></a>
+
+    <ul class="list-group mb-2 mt-2">
+      {% for meeting in committee.meeting_set.all %}
+      <a href="#">
+        <li class="list-group-item">{{ meeting.title }}</li>
+      </a>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="confirmDeleteDepartmentModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">
+          Are you sure to delete your committee {{ committee.title }}?
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <!-- prettier-ignore -->
+      <div class="modal-body">
+        <p>
+            <strong class=" text-danger">Warning!</strong><span>&nbsp;</span>This action is irreversible.
+        </p>
+        <hr>
+        <p>
+            All the meetings associated with this committee will be deleted.
+        </p>
+        <ul>
+            <li>Meetings: {{ committee.meeting_set.count }}</li>
+        </ul>
+        <hr>
+        <p class=" text-danger">
+            Are you sure you want to delete this committee "{{ committee.title }}"?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <a href="{% url 'meetings:delete_committee' committee.id %}">
+          <button type="button" class="btn btn-danger">
+            Understood & Delete
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}

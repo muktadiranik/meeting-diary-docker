@@ -1,0 +1,37 @@
+{% load crispy_forms_tags %}
+<div class="modal fade" id="addCommitteeModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    {% if add_committee_form %}
+    <form
+      method="POST"
+      action="{% url 'meetings:department_detail' department.id %}"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="fa-solid fa-plus"></i></h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <!-- prettier-ignore -->
+          {% csrf_token %} {{ add_committee_form|crispy }} {{ add_committee_form.media }}
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Add Committee</button>
+        </div>
+      </div>
+    </form>
+    {% endif %}
+  </div>
+</div>

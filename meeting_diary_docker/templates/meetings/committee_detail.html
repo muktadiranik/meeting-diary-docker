@@ -1,0 +1,40 @@
+<!-- prettier-ignore -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="card mt-2 mb-2">
+  <h3 class="card-header">{{ committee.title }}</h3>
+  <div class="card-body">
+    <h5 class="card-title">{{ committee.description|safe }}</h5>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1"><h1>Your Meetings</h1></span>
+        <div class="d-flex">
+          <form class="d-flex" method="get">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search Meetings"
+              aria-label="Search"
+              name="search_meeting"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+          <a href="{% url 'meetings:add_meeting' committee.id %}">
+            <button class="btn btn-outline-success ms-2" type="button">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </a>
+        </div>
+      </div>
+    </nav>
+    {% if meetings %}
+    <ul class="list-group mb-2 mt-2">
+      {% include 'meetings/meeting_list.html' %}
+    </ul>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

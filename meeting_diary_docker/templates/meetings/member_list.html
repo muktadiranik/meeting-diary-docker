@@ -1,0 +1,98 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Designation</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for member in members %}
+    <tr>
+      <td>{{ member.full_name }}</td>
+      <td>{{ member.primary_phone }}</td>
+      <td>{{ member.email }}</td>
+      <td>{{ member.designation }}</td>
+      <td>
+        {% if member.is_available == True %}
+        <span class="badge rounded-pill bg-success">Available</span>
+        {% else %}
+        <span class="badge rounded-pill bg-secondary">Not Available</span>
+        {% endif %}
+      </td>
+      <td>
+        <a
+          href="{% url 'meetings:update_member' member.id %}"
+          class="btn btn-warning btn-sm"
+          ><i class="fa-solid fa-pencil"></i
+        ></a>
+      </td>
+      <td>
+        <a
+          href="#"
+          class="btn btn-danger btn-sm"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#confirmDeleteMemberModal"
+          ><i class="fa-regular fa-trash-can"></i
+        ></a>
+      </td>
+    </tr>
+    <div
+      class="modal fade"
+      id="confirmDeleteMemberModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">
+              <!-- prettier-ignore -->
+              Are you sure to delete your member {{ member.first_name }} {{ member.last_name }}?
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- prettier-ignore -->
+          <div class="modal-body">
+          <p>
+              <strong class=" text-danger">Warning!</strong><span>&nbsp;</span>This action is irreversible.
+          </p>
+          <hr>
+          <p class=" text-danger">
+            <!-- prettier-ignore -->
+            Are you sure to delete your member {{ member.first_name }} {{ member.last_name }}?
+          </p>
+        </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <a href="{% url 'meetings:delete_member' member.id %}">
+              <button type="button" class="btn btn-danger">
+                Understood & Delete
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </tbody>
+</table>

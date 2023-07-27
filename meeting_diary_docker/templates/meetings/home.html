@@ -1,0 +1,37 @@
+<!-- prettier-ignore -->
+{% extends 'base.html' %} {% load static %} {% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <span class="navbar-brand"><h1>Your Departments</h1></span>
+
+      <div class="d-flex">
+        <form class="d-flex" method="get">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search Departments"
+            aria-label="Search"
+            name="search_department"
+          />
+          <button class="btn btn-outline-success" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+        <button
+          class="btn btn-outline-success me-2 ms-3"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#addDepartmentModal"
+        >
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  {% include 'meetings/department_list.html' %}
+</div>
+<div>{% include 'meetings/add_department.html' %}</div>
+{% endblock %}
