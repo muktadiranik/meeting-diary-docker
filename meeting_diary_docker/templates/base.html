@@ -27,6 +27,11 @@
     />
     <!-- Your stuff: Third-party CSS libraries go here -->
     <!-- This file stores project-specific CSS -->
+    <style>
+      .django-ckeditor-widget {
+        width: 100%;
+      }
+    </style>
 
     <link href="{% static 'css/project.css' %}" rel="stylesheet" />
 
@@ -46,7 +51,12 @@
       referrerpolicy="no-referrer"
     ></script>
     <!-- Your stuff: Third-party javascript libraries go here -->
-
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"
+      integrity="sha512-TjBzDQIDnc6pWyeM1bhMnDxtWH0QpOXMcVooglXrali/Tj7W569/wd4E8EDjk1CwOAOPSJon1VfcEt1BI4xIrA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <!-- place project specific Javascript in this file -->
 
     <script defer src="{% static 'js/project.js' %}"></script>

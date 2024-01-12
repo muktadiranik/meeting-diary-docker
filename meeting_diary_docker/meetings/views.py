@@ -1,3 +1,4 @@
+from meeting_diary_docker.meetings.tasks import send_invitation_mail_to_invited_members
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.views import View
 from django.db.models import Q, F, Value, Func
@@ -124,6 +125,8 @@ class DepartmentDetailView(View):
             committee = add_committee_form.save(commit=False)
             committee.department = department
             committee.save()
+            for i in request.POST.getlist('member'):
+                committee.member.add(i)
         return redirect('meetings:department_detail', pk=department.pk)
 
 
@@ -199,13 +202,14 @@ class AddMeetingView(View):
             meeting.save()
             meeting.invited_member.set(
                 add_meeting_form.cleaned_data['invited_member'])
-            send_mail(
-                meeting.title,
-                meeting.content,
-                'from@example.com',
-                [i.email for i in meeting.invited_member.all()],
-                fail_silently=False,
+
+            email_list = ""
+            for i in meeting.invited_member.all():
+                email_list += i.email + " "
+            send_invitation_mail_to_invited_members.delay(
+                email_list, meeting.id
             )
+
         return redirect('meetings:committee_detail', committee_pk=committee.pk)
 
 
@@ -263,10 +267,11 @@ class AddMemberView(View):
             if "department" in request.META.get('HTTP_REFERER'):
                 member.department = Department.objects.get(
                     pk=request.META.get('HTTP_REFERER').split('/')[-2])
-            if "committee" in request.META.get('HTTP_REFERER'):
-                member.department = Committee.objects.get(
-                    pk=request.META.get('HTTP_REFERER').split('/')[-3]).department
             member.save()
+            if "committee" in request.META.get('HTTP_REFERER'):
+                committee = Committee.objects.get(
+                    pk=request.META.get('HTTP_REFERER').split('/')[-3])
+                committee.member.add(member)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 

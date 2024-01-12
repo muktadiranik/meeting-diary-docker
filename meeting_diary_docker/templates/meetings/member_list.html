@@ -5,7 +5,6 @@
       <th>Phone</th>
       <th>Email</th>
       <th>Designation</th>
-      <th>Status</th>
       <th></th>
       <th></th>
     </tr>
@@ -17,13 +16,6 @@
       <td>{{ member.primary_phone }}</td>
       <td>{{ member.email }}</td>
       <td>{{ member.designation }}</td>
-      <td>
-        {% if member.is_available == True %}
-        <span class="badge rounded-pill bg-success">Available</span>
-        {% else %}
-        <span class="badge rounded-pill bg-secondary">Not Available</span>
-        {% endif %}
-      </td>
       <td>
         <a
           href="{% url 'meetings:update_member' member.id %}"

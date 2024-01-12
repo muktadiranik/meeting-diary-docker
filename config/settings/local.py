@@ -25,10 +25,10 @@ CACHES = {
 
 # EMAIL
 # ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-EMAIL_HOST = env("EMAIL_HOST", default="mailhog")
-# https://docs.djangoproject.com/en/dev/ref/settings/#email-port
-EMAIL_PORT = 1025
+EMAIL_HOST = env("EMAIL_HOST", default="sandbox.smtp.mailtrap.io")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="0bb7323b00df03")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="4589e54a106462")
+EMAIL_PORT = env("EMAIL_PORT", default="2525")
 
 # WhiteNoise
 # ------------------------------------------------------------------------------

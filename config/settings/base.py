@@ -83,6 +83,8 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
     "django_quill",
     "tinymce",
+    "ckeditor",
+    "ckeditor_uploader",
 ]
 
 LOCAL_APPS = [
@@ -342,3 +344,15 @@ SPECTACULAR_SETTINGS = {
 }
 # Your stuff...
 # ------------------------------------------------------------------------------
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar": "full",
+    }
+}
+
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '0bb7323b00df03'
+EMAIL_HOST_PASSWORD = '4589e54a106462'
+EMAIL_PORT = '2525'

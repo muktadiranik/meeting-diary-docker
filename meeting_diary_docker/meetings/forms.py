@@ -1,5 +1,5 @@
+from ckeditor.widgets import CKEditorWidget
 from django import forms
-from tinymce.widgets import TinyMCE
 from meeting_diary_docker.meetings.models import *
 
 

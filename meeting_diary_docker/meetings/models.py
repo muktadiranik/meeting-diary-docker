@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from tinymce.models import HTMLField
+from ckeditor.fields import RichTextField
 
 User = get_user_model()
 
@@ -11,12 +11,15 @@ class Department(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
-    description = HTMLField(blank=True, null=True)
+    description = RichTextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.id)
+        try:
+            return str(self.title)
+        except:
+            return str(self.id)
 
 
 class Member(models.Model):
@@ -32,17 +35,24 @@ class Member(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.full_name)
 
 
 class Committee(models.Model):
     department = models.ForeignKey(
         Department, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
-    description = HTMLField(blank=True, null=True)
+    description = RichTextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     member = models.ManyToManyField(Member, blank=True)
+
+    def __str__(self):
+        return str(self.title)
+
+
+class Content(models.Model):
+    content = RichTextField(blank=True, null=True)
 
     def __str__(self):
         return str(self.id)
@@ -54,8 +64,8 @@ class Meeting(models.Model):
     department = models.ForeignKey(
         Department, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
-    description = HTMLField(blank=True, null=True)
-    content = HTMLField(blank=True, null=True)
+    description = RichTextField(blank=True, null=True)
+    agenda = RichTextField(blank=True, null=True)
     meeting_time = models.DateTimeField(blank=True, null=True)
     invited_member = models.ManyToManyField(
         Member, related_name='invited_member', blank=True)
@@ -67,4 +77,4 @@ class Meeting(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.title)

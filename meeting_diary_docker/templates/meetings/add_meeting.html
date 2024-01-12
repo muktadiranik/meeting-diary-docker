@@ -18,12 +18,6 @@
           <i class="fa-solid fa-plus"></i>
         </a>
         {% endif %}
-        <!-- prettier-ignore -->
-        {% if field.name == "meeting_type" %}
-        <a href="" data-bs-toggle="modal" data-bs-target="#addMeetingTypeModal"
-          ><i class="fa-solid fa-plus"></i
-        ></a>
-        {% endif %}
       </label>
       <!-- prettier-ignore -->
       <div class="mt-2">
@@ -41,7 +35,6 @@
     </button>
   </form>
   <div>{% include 'meetings/add_member.html' %}</div>
-  <div>{% include 'meetings/add_meeting_type.html' %}</div>
   {% endif %}
 </div>
 
