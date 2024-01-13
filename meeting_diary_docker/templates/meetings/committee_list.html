@@ -1,6 +1,10 @@
 {% for committee in committees %}
 <div class="card mt-2 mb-2">
-  <h3 class="card-header">{{ committee.title }}</h3>
+  <h3 class="card-header">
+    <a href="{% url 'meetings:committee_detail' committee.id %}"
+      >{{ committee.title }}</a
+    >
+  </h3>
   <div class="card-body">
     <h5 class="card-title">{{ committee.description|safe }}</h5>
     <a
@@ -20,12 +24,12 @@
       type="button"
       data-bs-toggle="modal"
       data-bs-target="#confirmDeleteDepartmentModal"
-      ><i class="fa-regular fa-trash-can"></i></i
-    ></a>
+      ><i class="fa-regular fa-trash-can"></i>
+    </a>
 
     <ul class="list-group mb-2 mt-2">
       {% for meeting in committee.meeting_set.all %}
-      <a href="#">
+      <a href="{% url 'meetings:meeting_detail' meeting.id %}">
         <li class="list-group-item">{{ meeting.title }}</li>
       </a>
       {% endfor %}

@@ -35,3 +35,16 @@
     {% endif %}
   </div>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    selectAllOptions();
+  });
+
+  function selectAllOptions() {
+    const selectElement = document.getElementById("id_member");
+
+    for (let i = 0; i < selectElement.options.length; i++) {
+      selectElement.options[i].selected = true;
+    }
+  }
+</script>

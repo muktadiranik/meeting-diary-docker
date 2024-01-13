@@ -15,14 +15,16 @@
       class="btn btn-warning"
       ><i class="fa-solid fa-pencil"></i
     ></a>
+    {% if meeting.is_over %}
     <a
       href="#"
       class="btn btn-danger"
       type="button"
       data-bs-toggle="modal"
       data-bs-target="#confirmDeleteMeetingModal"
-      ><i class="fa-regular fa-trash-can"></i></i
+      ><i class="fa-regular fa-trash-can"></i
     ></a>
+    {% endif %}
   </div>
 </div>
 <div

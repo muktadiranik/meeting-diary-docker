@@ -2,10 +2,12 @@ from celery import shared_task
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from meeting_diary_docker.meetings.models import Meeting
+import time
 
 
 @shared_task(bind=True)
 def send_invitation_mail_to_invited_members(self, email_list, meeting_id):
+    time.sleep(5)
     title = Meeting.objects.get(id=meeting_id).title
     description = Meeting.objects.get(id=meeting_id).description
     agenda = Meeting.objects.get(id=meeting_id).agenda

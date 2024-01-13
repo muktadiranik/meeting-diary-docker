@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from meeting_diary_docker.meetings.tasks import send_invitation_mail_to_invited_members
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.views import View
@@ -173,6 +174,12 @@ class CommitteeDetailView(View):
                        Q(meeting_type__title__icontains=self.request.GET.get('search_meeting')))
         else:
             meetings = Meeting.objects.filter(committee=committee)
+
+        current_datetime = datetime.now(timezone.utc)
+
+        for meeting in meetings:
+            meeting.is_over = meeting.meeting_time > current_datetime
+
         return render(request, 'meetings/committee_detail.html', {
             'committee': committee,
             'meetings': meetings,

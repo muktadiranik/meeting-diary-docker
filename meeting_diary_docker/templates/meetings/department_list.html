@@ -1,6 +1,10 @@
 {% for department in departments %}
 <div class="card mt-2 mb-2">
-  <h3 class="card-header">{{ department.title }}</h3>
+  <h3 class="card-header">
+    <a href="{% url 'meetings:department_detail' department.id %}"
+      >{{ department.title }}</a
+    >
+  </h3>
   <div class="card-body">
     <h5 class="card-title">{{ department.description|safe }}</h5>
     <a

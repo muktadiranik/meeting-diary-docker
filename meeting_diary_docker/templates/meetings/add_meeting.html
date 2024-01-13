@@ -5,7 +5,11 @@
 {% load crispy_forms_tags %}
 <div class="container">
   {% if add_meeting_form %}
-  <form action="{% url 'meetings:add_meeting' committee.id  %}" method="post">
+  <form
+    action="{% url 'meetings:add_meeting' committee.id  %}"
+    method="post"
+    id="addMeeting"
+  >
     <!-- {{ add_meeting_form|crispy }} -->
     <!-- prettier-ignore -->
     {% csrf_token %}
@@ -14,7 +18,12 @@
       <label for="{{ field.id_for_label }}"
         >{{ field.label }}<span>&nbsp;</span>
         {% if field.name == "invited_member" %}
-        <a href="" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+        <a
+          href=""
+          data-bs-toggle="modal"
+          data-bs-target="#addMemberModal"
+          id="addMember"
+        >
           <i class="fa-solid fa-plus"></i>
         </a>
         {% endif %}
@@ -37,5 +46,17 @@
   <div>{% include 'meetings/add_member.html' %}</div>
   {% endif %}
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    selectAllOptions();
+  });
 
+  function selectAllOptions() {
+    const selectElement = document.getElementById("id_invited_member");
+
+    for (let i = 0; i < selectElement.options.length; i++) {
+      selectElement.options[i].selected = true;
+    }
+  }
+</script>
 {% endblock %}
