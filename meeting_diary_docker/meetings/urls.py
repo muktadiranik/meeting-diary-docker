@@ -32,4 +32,6 @@ urlpatterns = [
          login_required(DeleteMemberView.as_view()), name="delete_member"),
     path("update-member/<int:member_pk>/",
          login_required(UpdateMemberView.as_view()), name="update_member"),
+    path("send-mail-to-invited-member/<int:id>/", login_required(SendMailAPIView.as_view()),
+         name="send_mail_to_invited_member"),
 ]

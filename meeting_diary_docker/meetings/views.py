@@ -1,3 +1,4 @@
+from rest_framework import status
 from datetime import datetime, timezone
 from meeting_diary_docker.meetings.tasks import send_invitation_mail_to_invited_members
 from django.shortcuts import render, redirect, HttpResponseRedirect
@@ -305,6 +306,21 @@ class DeleteMemberView(View):
         member = Member.objects.get(pk=member_pk)
         member.delete()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+class SendMailAPIView(APIView):
+    def get(self, request, id):
+        try:
+            meeting = Meeting.objects.get(pk=id)
+            email_list = ""
+            for i in meeting.invited_member.all():
+                email_list += i.email + " "
+            send_invitation_mail_to_invited_members.delay(
+                email_list, meeting.id
+            )
+            return Response(status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 # API Views

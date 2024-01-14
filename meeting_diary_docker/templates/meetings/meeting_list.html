@@ -1,7 +1,11 @@
 {% for meeting in meetings %}
 <div class="card mt-2 mb-2">
   <div class=""></div>
-  <h3 class="card-header">{{ meeting.title }}</h3>
+  <h3 class="card-header">
+    <a href="{% url 'meetings:meeting_detail' meeting.id %}"
+      >{{ meeting.title }}</a
+    >
+  </h3>
   <div class="card-body">
     <h5 class="card-title">{{ meeting.description|safe }}</h5>
     <a
